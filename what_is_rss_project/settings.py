@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'what_is_rss_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rssReader',
+        'NAME': 'rssreader',
         'USER': 'rssadmin',
         'PASSWORD': 'i*7LFE>DQ69Q48f',
         'HOST': 'localhost'
