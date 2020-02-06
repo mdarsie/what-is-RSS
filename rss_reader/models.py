@@ -8,7 +8,7 @@ class Group(models.Model):
     collection = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.collection
 
 
 class Feed(models.Model):
@@ -20,7 +20,7 @@ class Feed(models.Model):
     feed_last_published = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.name
+        return self.feed_title
 
 
 class Article(models.Model):
@@ -31,5 +31,4 @@ class Article(models.Model):
     article_image = models.CharField(max_length=200)
     article_last_published = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.name
+   
