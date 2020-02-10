@@ -1,6 +1,6 @@
 # What is RSS!?
 
-A RSS feed reader for the browser. [Read your feeds!](https://agitated-hamilton-7856ff.netlify.com)
+A RSS feed reader for the browser.
 
 ## Overview
 
@@ -23,7 +23,7 @@ This application is a simple reader for RSS feeds. The feed content is saved in 
 
 ![entity relationship diagram](assets/ERD.jpg)
 
-[Trello board](https://trello.com/b/1CzxLqAz)
+[Trello board](https://trello.com/b/UFI7y1Rj)
 
 ## Next Steps
 
@@ -31,4 +31,3 @@ This application is a simple reader for RSS feeds. The feed content is saved in 
 2. Mark articles as read after they are viewed, provide option to mark as unread as well.
 3. Provide a count of unread articles for each feed.
 4. Convert the RSS "date published" field into a format suitable for a Django date time field and display the dates of articles.
-
