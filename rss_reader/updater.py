@@ -1,6 +1,9 @@
+from django.db.models import Q
+from django.contrib import admin
 import feedparser
 
-from .models import Feed, Article
+from rss_reader.models import Group, Feed, Article
+
 
 
 def update_feeds():
