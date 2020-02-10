@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import "./App.css";
 import Article from "./components/Feed";
-import Feed from "./components/AllFeeds"
+import Feed from "./components/AllFeeds";
 
 class App extends React.Component {
   state = {
@@ -33,7 +33,7 @@ class App extends React.Component {
   loadFeedData = async () => {
     try {
       const res = await axios.get("/api/v1/feed");
-      this.setState({ feeds: res.data});
+      this.setState({ feeds: res.data });
     } catch (err) {
       console.log("Failed to retrieve data");
     }
@@ -59,16 +59,12 @@ class App extends React.Component {
     return (
       <div>
         <h1>What is RSS!?</h1>
-        {
-        this.state.feeds.map(feed => {
+        {this.state.feeds.map(feed => {
           return (
-            <Feed
-              feed_title={feed.feed_title}
-              feed_link={feed.feed_link}
-            />
+            <Feed feed_title={feed.feed_title} feed_link={feed.feed_link} />
           );
         })}
-        
+
         <div className="new-feed">
           <input
             className="new-feed-link"
@@ -98,20 +94,16 @@ class App extends React.Component {
             Add Feed!
           </button>
         </div>
-        {
-        this.state.articles.map(article => {
+        {this.state.articles.map(article => {
           return (
             <Article
-              feed={article.feed.feed_title}
+              article_id={article.id}
               article_title={article.article_title}
               article_link={article.article_link}
             />
           );
         })}
-         
-
       </div>
-      
     );
   }
 }

@@ -27,5 +27,5 @@ class MegaSerializer(serializers.ModelSerializer):
     feeds = FeedSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Group
-        fields = ('article_link', 'article_title', 'feed_title', 'group', 'collection')
+        model = Article
+        fields = ('id', 'article_link', 'article_title', 'feed_title')
