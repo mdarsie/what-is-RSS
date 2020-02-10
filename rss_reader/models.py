@@ -12,11 +12,10 @@ class Group(models.Model):
 
 
 class Feed(models.Model):
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='feeds')
     feed_title = models.CharField(max_length=200)
     feed_description = models.TextField(default='')
     feed_link = models.CharField(max_length=200)
-
+    
     def __str__(self):
         return self.feed_title
 

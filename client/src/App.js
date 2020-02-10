@@ -2,10 +2,12 @@ import React from "react";
 import axios from "axios";
 import "./App.css";
 import Article from "./components/Feed";
+import Feed from "./components/AllFeeds"
 
 class App extends React.Component {
   state = {
     articles: [],
+    feeds: [],
     newFeed: {
       feed_title: "",
       feed_description: "",
@@ -16,12 +18,22 @@ class App extends React.Component {
 
   componentDidMount() {
     this.loadMegaData();
+    this.loadFeedData();
   }
 
   loadMegaData = async () => {
     try {
       const res = await axios.get("/api/v1/article");
       this.setState({ articles: res.data.reverse() });
+    } catch (err) {
+      console.log("Failed to retrieve data");
+    }
+  };
+
+  loadFeedData = async () => {
+    try {
+      const res = await axios.get("/api/v1/feed");
+      this.setState({ feeds: res.data});
     } catch (err) {
       console.log("Failed to retrieve data");
     }
@@ -47,8 +59,18 @@ class App extends React.Component {
     return (
       <div>
         <h1>What is RSS!?</h1>
+        {
+        this.state.feeds.map(feed => {
+          return (
+            <Feed
+              feed_title={feed.feed_title}
+              feed_link={feed.feed_link}
+            />
+          );
+        })}
+        
         <div className="new-feed">
-          <textarea
+          <input
             className="new-feed-link"
             placeholder="Paste the RSS URL here"
             name="feed_link"
@@ -69,7 +91,7 @@ class App extends React.Component {
             placeholder="Description"
             name="feed_description"
             onChange={this.onNewFeedAdd}
-            value={this.state.newFeed.feed_title}
+            value={this.state.newFeed.feed_description}
           />
 
           <button className="add-feed-button" onClick={this.onNewFeed}>
@@ -86,7 +108,10 @@ class App extends React.Component {
             />
           );
         })}
+         
+
       </div>
+      
     );
   }
 }

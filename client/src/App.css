@@ -44,8 +44,13 @@ li a.active {
   text-decoration: none;
 }
 
-.article {
-  margin-left: 25%;
-  padding: 1px 16px;
+.article-container {
+  margin-left: 350px;
+  padding: 10px 16px;
   height: 1000px;
+}
+
+.new-feed{
+  display: flex;
+  justify-content: center;
 }
