@@ -1,68 +1,88 @@
 import React from "react";
 import axios from "axios";
 import "./App.css";
-import reader from "./components/reader";
+import Article from "./components/Feed";
 
 class App extends React.Component {
   state = {
-    groups: [],
-    feeds: [],
-    article: []
+    articles: [],
+    newFeed: {
+      feed_title: "",
+      feed_description: "",
+      feed_link: "",
+      group: "none"
+    }
   };
 
   componentDidMount() {
-    this.loadGroupData();
-    this.loadFeedData();
-    this.loadArticleData();
+    this.loadMegaData();
   }
 
-  loadGroupData = async () => {
-    try {
-      const res = await axios.get("/api/v1/group");
-      this.setState({ group: res.data });
-    } catch (err) {
-      console.log("Failed to retrieve data");
-    }
-  };
-
-  loadFeedData = async () => {
-    try {
-      const res = await axios.get("/api/v1/feed");
-      this.setState({ feed: res.data });
-    } catch (err) {
-      console.log("Failed to retrieve data");
-    }
-  };
-
-  loadArticleData = async () => {
+  loadMegaData = async () => {
     try {
       const res = await axios.get("/api/v1/article");
-      this.setState({ article: res.data.reverse() });
+      this.setState({ articles: res.data.reverse() });
     } catch (err) {
       console.log("Failed to retrieve data");
     }
+  };
+
+  onNewFeedAdd = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    const newState = { ...this.state };
+
+    newState.newFeed[name] = value;
+
+    this.setState(newState);
+  };
+
+  onNewFeed = () => {
+    axios.post("/api/v1/feed/", this.state.newFeed).then(() => {
+      this.loadMegaData();
+    });
   };
 
   render() {
     return (
       <div>
         <h1>What is RSS!?</h1>
-        <div className="navbar-container">
-          <div className="group">
-            {this.state.groups.map(group => {
-              return <group 
-              group={group.collection} 
-              feed={group.feed.feed_title}
-              />;
-            })}
-          </div>
+        <div className="new-feed">
+          <textarea
+            className="new-feed-link"
+            placeholder="Paste the RSS URL here"
+            name="feed_link"
+            onChange={this.onNewFeedAdd}
+            value={this.state.newFeed.feed_link}
+          />
+
+          <input
+            type="text"
+            placeholder="Name of Feed"
+            name="feed_title"
+            onChange={this.onNewFeedAdd}
+            value={this.state.newFeed.feed_title}
+          />
+
+          <input
+            type="text"
+            placeholder="Description"
+            name="feed_description"
+            onChange={this.onNewFeedAdd}
+            value={this.state.newFeed.feed_title}
+          />
+
+          <button className="add-feed-button" onClick={this.onNewFeed}>
+            Add Feed!
+          </button>
         </div>
-        {this.state.articles.map(article => {
+        {
+        this.state.articles.map(article => {
           return (
-            <article
-              title={article.article_title}
-              description={article.article_description}
-              link={article.article_link}
+            <Article
+              feed={article.feed.feed_title}
+              article_title={article.article_title}
+              article_link={article.article_link}
             />
           );
         })}
@@ -72,4 +92,3 @@ class App extends React.Component {
 }
 
 export default App;
-

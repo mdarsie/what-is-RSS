@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
+from .serializers import GroupSerializer, FeedSerializer, ArticleSerializer, MegaSerializer
 from .models import Group, Feed, Article
-from .serializers import GroupSerializer, FeedSerializer, ArticleSerializer
 
 class GroupView(viewsets.ModelViewSet):
     queryset = Group.objects.all()
@@ -14,5 +14,9 @@ class FeedView(viewsets.ModelViewSet):
 class ArticleView(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+class MegaView(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class= MegaSerializer
 
 
