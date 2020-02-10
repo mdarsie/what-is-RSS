@@ -8,10 +8,16 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class FeedSerializer(serializers.ModelSerializer):
+    articles = ArticleSerializer(many=True, read_only=True)
+    
     class Meta:
+        model = Feed
         fields = ('id', 'group', 'feed_title', 'feed_description', 'feed_link', 'article_title')
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    feeds = FeedSerializer(many=True, read_only=True)
+    
     class Meta:
+        model = Group
         fields = ('collection', 'feed_title')
